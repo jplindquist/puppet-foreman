@@ -95,8 +95,13 @@ class foreman::config::apache(
   Stdlib::Port $server_ssl_port = 443,
   Pattern['^(https?|unix)://'] $proxy_backend = 'unix:///run/foreman.sock',
   Boolean $proxy_add_headers = true,
+<<<<<<< HEAD
   Hash $proxy_params = {'retry' => '0'},
   Array[String] $proxy_no_proxy_uris = ['/pulp', '/pulp2', '/streamer', '/pub', '/icons'],
+=======
+  Hash $proxy_params = { 'retry' => '0' },
+  Array[String] $proxy_no_proxy_uris = ['/pulp', '/pulp2', '/streamer', '/pub', '/icons', '/server-status'],
+>>>>>>> 9c55f5f... Fixes #35356 - Don't proxy /server-status
   Boolean $ssl = false,
   Optional[Stdlib::Absolutepath] $ssl_ca = undef,
   Optional[Stdlib::Absolutepath] $ssl_chain = undef,
