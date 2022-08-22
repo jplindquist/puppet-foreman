@@ -86,7 +86,7 @@
 # @param request_headers_to_unset A list of HTTP headers coming from
 #   the client that will be unset and hence not passed to the
 #   application.
-class foreman::config::apache(
+class foreman::config::apache (
   Stdlib::Absolutepath $app_root = '/usr/share/foreman',
   String $priority = '05',
   Stdlib::Fqdn $servername = $facts['networking']['fqdn'],
@@ -95,13 +95,12 @@ class foreman::config::apache(
   Stdlib::Port $server_ssl_port = 443,
   Pattern['^(https?|unix)://'] $proxy_backend = 'unix:///run/foreman.sock',
   Boolean $proxy_add_headers = true,
-<<<<<<< HEAD
-  Hash $proxy_params = {'retry' => '0'},
-  Array[String] $proxy_no_proxy_uris = ['/pulp', '/pulp2', '/streamer', '/pub', '/icons'],
-=======
+  <<<<<<< HEAD
   Hash $proxy_params = { 'retry' => '0' },
-  Array[String] $proxy_no_proxy_uris = ['/pulp', '/pulp2', '/streamer', '/pub', '/icons', '/server-status'],
->>>>>>> 9c55f5f... Fixes #35356 - Don't proxy /server-status
+  Array[String] $proxy_no_proxy_uris = ['/pulp', '/pulp2', '/streamer', '/pub', '/icons'],
+  =======
+    Hash $proxy_params = { 'retry' => '0' },
+  Array[String] $proxy_no_proxy_uris = ['/pulp', '/pulp2', '/streamer', '/pub', '/icons', '/server-status', '/webpack', '/assets'],
   Boolean $ssl = false,
   Optional[Stdlib::Absolutepath] $ssl_ca = undef,
   Optional[Stdlib::Absolutepath] $ssl_chain = undef,
@@ -268,7 +267,7 @@ class foreman::config::apache(
     servername            => $servername,
     serveraliases         => $serveraliases,
     access_log_format     => $access_log_format,
-    additional_includes   => ["${::apache::confd_dir}/${priority}-foreman.d/*.conf"],
+    additional_includes   => ["${apache::confd_dir}/${priority}-foreman.d/*.conf"],
     use_optional_includes => true,
     custom_fragment       => $custom_fragment,
     *                     => $vhost_http_internal_options + $http_vhost_options,
@@ -313,7 +312,7 @@ class foreman::config::apache(
       ssl_options           => '+StdEnvVars +ExportCertData',
       ssl_verify_depth      => 3,
       access_log_format     => $access_log_format,
-      additional_includes   => ["${::apache::confd_dir}/${priority}-foreman-ssl.d/*.conf"],
+      additional_includes   => ["${apache::confd_dir}/${priority}-foreman-ssl.d/*.conf"],
       use_optional_includes => true,
       custom_fragment       => $custom_fragment,
       *                     => $vhost_https_internal_options + $https_vhost_options,
